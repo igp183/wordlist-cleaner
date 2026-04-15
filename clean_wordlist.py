@@ -13,19 +13,16 @@ ALLOW_CAPITALS = False
 
 
 def is_valid(word):
-    if len(word) < MIN_LENGTH:
-        return False
-    if len(word) > MAX_LENGTH:
-        return False
-    if not ALLOW_SPACES and " " in word:
-        return False
-    if not ALLOW_NUMBERS and any(c.isdigit() for c in word):
-        return False
-    if not ALLOW_HYPHENS and "-" in word:
-        return False
-    if not ALLOW_CAPITALS and any(c.isupper() for c in word):
-        return False
-    return True
+    isTooShort = len(word) < MIN_LENGTH
+    isTooLong = len(word) > MAX_LENGTH
+    hasSpaces = not ALLOW_SPACES and " " in word
+    hasNumbers = not ALLOW_NUMBERS and any(c.isdigit() for c in word)
+    hasHyphens = not ALLOW_HYPHENS and "-" in word
+    hasCapitals = not ALLOW_CAPITALS and any(c.isupper() for c in word)
+
+    return not (
+        isTooShort or isTooLong or hasSpaces or hasNumbers or hasHyphens or hasCapitals
+    )
 
 
 def main():
